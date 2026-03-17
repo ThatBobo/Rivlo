@@ -1,6 +1,8 @@
-//
-// 1. CREATE A NEW GITHUB REPO
-//
+// ===============================
+// Rivlo REAL GitHub main.js
+// ===============================
+
+// 1. Create a new GitHub repo
 async function createRepo(repoName, token) {
   const res = await fetch("https://api.github.com/user/repos", {
     method: "POST",
@@ -19,9 +21,7 @@ async function createRepo(repoName, token) {
   return data;
 }
 
-//
-// 2. WRITE OR UPDATE A FILE IN THE REPO
-//
+// 2. Write or update a file in the repo
 async function writeFile({ owner, repo, path, content, message, token }) {
   const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
 
@@ -61,17 +61,25 @@ async function writeFile({ owner, repo, path, content, message, token }) {
   return result;
 }
 
-//
-// 3. HOOK UP THE BUTTON
-//
+// 3. Hook up the button
 document.getElementById("pushBtn").onclick = async () => {
-  const path = document.getElementById("filePath").value;
+  const path = document.getElementById("filePath").value.trim();
   const content = document.getElementById("fileContent").value;
 
-  // These values come from your GitHub App OAuth flow
-  const token = window.rivlo_installation_token;   // set this after OAuth
-  const owner = window.rivlo_github_username;      // set after OAuth
-  const repo  = window.rivlo_repo_name;            // created at project start
+  if (!path) {
+    alert("Enter a file path, e.g. src/App.jsx");
+    return;
+  }
+
+  if (!content) {
+    alert("Enter file content.");
+    return;
+  }
+
+  // These MUST already exist (from your GitHub OAuth flow)
+  const token = window.rivlo_installation_token;
+  const owner = window.rivlo_github_username;
+  const repo  = window.rivlo_repo_name;
 
   if (!token || !owner || !repo) {
     alert("GitHub not connected.");
@@ -84,11 +92,11 @@ document.getElementById("pushBtn").onclick = async () => {
       repo,
       path,
       content,
-      message: "Update from Rivlo AI",
+      message: "Update from Rivlo",
       token
     });
 
-    console.log(result);
+    console.log("GitHub response:", result);
     alert("File pushed to GitHub!");
   } catch (err) {
     console.error(err);
