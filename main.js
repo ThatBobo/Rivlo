@@ -32,7 +32,7 @@ async function writeFile({ owner, repo, path, content, message, token }) {
   let sha = null;
   const getRes = await fetch(url, {
     headers: {
-      "Authorization": `Bearer ${token}`,
+      "Authorization": `token ${token}`,
       "Accept": "application/vnd.github+json"
     }
   });
