@@ -7,7 +7,7 @@ async function createRepo(repoName, token) {
   const res = await fetch("https://api.github.com/user/repos", {
     method: "POST",
     headers: {
-      "Authorization": `Bearer ${token}`,
+      "Authorization": `token ${token}`,
       "Accept": "application/vnd.github+json"
     },
     body: JSON.stringify({
@@ -46,7 +46,7 @@ async function writeFile({ owner, repo, path, content, message, token }) {
   const putRes = await fetch(url, {
     method: "PUT",
     headers: {
-      "Authorization": `Bearer ${token}`,
+      "Authorization": `token ${token}`,
       "Accept": "application/vnd.github+json"
     },
     body: JSON.stringify({
