@@ -77,9 +77,9 @@ document.getElementById("pushBtn").onclick = async () => {
   }
 
   // These MUST already exist (from your GitHub OAuth flow)
-  const token = window.rivlo_installation_token;
-  const owner = window.rivlo_github_username;
-  const repo  = window.rivlo_repo_name;
+  const token = "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";
+  const owner = "ThatBobo";
+  const repo  = "Rivlo-Test";
 
   if (!token || !owner || !repo) {
     alert("GitHub not connected.");
